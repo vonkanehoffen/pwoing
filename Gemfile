@@ -37,3 +37,8 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
+
+# Authentication
+gem 'omniauth-twitter'
+gem 'omniauth-google-oauth2'
+
