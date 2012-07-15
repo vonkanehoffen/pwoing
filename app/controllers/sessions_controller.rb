@@ -1,4 +1,11 @@
 class SessionsController < ApplicationController
+  
+  def index
+    respond_to do |format|
+      format.html # index.html.erb
+    end
+  end
+  
   def create
     user = User.from_omniauth(env["omniauth.auth"])
     puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> USER auth"

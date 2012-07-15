@@ -1,0 +1,7 @@
+<% if current_user %>
+  <h1>You're already signed in.</h1>
+<% else %>
+  <h1>Sign in.</h1>
+  <p><%= link_to "Sign in with Twitter", "/auth/twitter" %></p>
+  <p><%= link_to "Sign in with Google", "/auth/google_oauth2" %></p>
+<% end %>

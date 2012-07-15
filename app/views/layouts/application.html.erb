@@ -17,8 +17,7 @@
                         <li><a href="#">Signed in as <%= current_user.name %></a></li>
                         <li><%= link_to "Sign out", signout_path %></li>
                     <% else %>
-                        <li><%= link_to "Sign in with Twitter", "/auth/twitter" %></li>
-                        <li><%= link_to "Sign in with Google", "/auth/google_oauth2" %></li>
+                        <li><%= link_to "Login / Sign Up", signin_path %></li>
                     <% end %>
                 </ul>
             </div>
