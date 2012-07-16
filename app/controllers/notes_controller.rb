@@ -4,9 +4,9 @@ class NotesController < ApplicationController
   def index
     if params[:tag_name]
       # find posts by tag: /tags/tagname
-      @notes = Tag.find_by_name(params[:tag_name]).notes.order("created_at DESC")
+      @notes = Tag.find_by_name(params[:tag_name]).notes.order("created_at DESC").page params[:page]
     else
-      @notes = Note.all
+      @notes = Note.page params[:page]
     end
     
     respond_to do |format|

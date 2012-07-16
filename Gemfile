@@ -42,3 +42,7 @@ gem 'jquery-rails'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 
+# Pagination
+gem 'kaminari', '~> 0.13.0'
+
+

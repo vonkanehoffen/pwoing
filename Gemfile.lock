@@ -54,6 +54,10 @@ GEM
     json (1.7.3)
     jwt (0.1.4)
       json (>= 1.2.4)
+    kaminari (0.13.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      railties (>= 3.0.0)
     less (2.2.1)
       commonjs (~> 0.2.6)
     less-rails (2.2.3)
@@ -145,6 +149,7 @@ PLATFORMS
 DEPENDENCIES
   coffee-rails (~> 3.2.1)
   jquery-rails
+  kaminari (~> 0.13.0)
   less-rails-bootstrap
   omniauth-google-oauth2
   omniauth-twitter
