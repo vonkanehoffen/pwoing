@@ -1,7 +1,11 @@
 class Note < ActiveRecord::Base
-  attr_accessible :content, :link, :name, :tag_names  
+
+  attr_accessible :content, :link, :name, :tag_names
+  
   has_many :taggings, :dependent => :destroy
   has_many :tags, :through => :taggings
+  belongs_to :user
+  
   validates_presence_of :name, :content
   attr_writer :tag_names
   after_save :assign_tags

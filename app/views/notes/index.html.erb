@@ -5,7 +5,8 @@
     <th>Name</th>
     <th>Link</th>
     <th>Content</th>
-    <th></th>
+    <th>Tags</th>
+    <th>User</th>
     <th></th>
     <th></th>
   </tr>
@@ -16,6 +17,7 @@
     <td><%= note.link %></td>
     <td><%= note.content %></td>
     <td><%= tag_links(note) %></td>
+    <td><%= if note.user then note.user.name end %></td>
     <td><%= link_to 'Show', note %></td>
     <td><%= link_to 'Edit', edit_note_path(note) %></td>
     <td><%= link_to 'Destroy', note, method: :delete, data: { confirm: 'Are you sure?' } %></td>

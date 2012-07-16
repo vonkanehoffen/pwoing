@@ -45,4 +45,7 @@ gem 'omniauth-google-oauth2'
 # Pagination
 gem 'kaminari', '~> 0.13.0'
 
+# Better output on the console
+gem 'awesome_print'
+
 
