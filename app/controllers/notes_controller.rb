@@ -1,6 +1,7 @@
 class NotesController < ApplicationController
   
   before_filter :require_user, :only => [:new, :create, :update, :edit, :destroy]
+  respond_to :html, :json, :js
   
   # GET /notes
   # GET /notes.json
@@ -11,33 +12,21 @@ class NotesController < ApplicationController
     else
       @notes = Note.page params[:page]
     end
-    
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @notes }
-    end
+    respond_with(@notes)
   end
 
   # GET /notes/1
   # GET /notes/1.json
   def show
     @note = Note.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @note }
-    end
+    respond_with(@note)
   end
 
   # GET /notes/new
   # GET /notes/new.json
   def new
     @note = Note.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @note }
-    end
+    respond_with(@note)
   end
 
   # GET /notes/1/edit
@@ -49,32 +38,20 @@ class NotesController < ApplicationController
   # POST /notes.json
   def create
     @note = current_user.notes.build(params[:note])
-
-    respond_to do |format|
-      if @note.save
-        format.html { redirect_to @note, notice: 'Note was successfully created.' }
-        format.json { render json: @note, status: :created, location: @note }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @note.errors, status: :unprocessable_entity }
-      end
+    if @note.save
+      flash[:notice] = 'Note was successfully created.'
     end
+    respond_with(@note)
   end
 
   # PUT /notes/1
   # PUT /notes/1.json
   def update
     @note = Note.find(params[:id])
-
-    respond_to do |format|
-      if @note.update_attributes(params[:note])
-        format.html { redirect_to @note, notice: 'Note was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @note.errors, status: :unprocessable_entity }
-      end
+    if @note.update_attributes(params[:note])
+      flash[:notice] = 'Note was successfully updated.'
     end
+    respond_with(@note)
   end
 
   # DELETE /notes/1
@@ -82,10 +59,7 @@ class NotesController < ApplicationController
   def destroy
     @note = Note.find(params[:id])
     @note.destroy
-
-    respond_to do |format|
-      format.html { redirect_to notes_url }
-      format.json { head :no_content }
-    end
+    flash[:notice] = 'Your note has been destroyed.'
+    respond_with(@note)
   end
 end
