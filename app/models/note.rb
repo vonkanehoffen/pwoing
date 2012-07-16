@@ -6,7 +6,8 @@ class Note < ActiveRecord::Base
   has_many :tags, :through => :taggings
   belongs_to :user
   
-  validates_presence_of :name, :content
+  validate :name_or_link
+  
   attr_writer :tag_names
   after_save :assign_tags
   
@@ -14,13 +15,19 @@ class Note < ActiveRecord::Base
     @tag_names || tags.map(&:name).join(' ')
   end
   
-  private
+  private # Everything after this is private
   
   def assign_tags
     if @tag_names
       self.tags = @tag_names.split(/\s+/).map do |name|
         Tag.find_or_create_by_name(name)
       end
+    end
+  end
+
+  def name_or_link
+    if(name.blank? and link.blank?)
+      errors[:base] << "Your note must at least have a name or link."
     end
   end
   
