@@ -1,4 +1,7 @@
 class NotesController < ApplicationController
+  
+  before_filter :require_user, :only => [:new, :create, :update, :edit, :destroy]
+  
   # GET /notes
   # GET /notes.json
   def index
@@ -45,11 +48,10 @@ class NotesController < ApplicationController
   # POST /notes
   # POST /notes.json
   def create
-    @note = Note.new(params[:note])
+    @note = current_user.notes.build(params[:note])
 
     respond_to do |format|
       if @note.save
-        current_user.notes << @note
         format.html { redirect_to @note, notice: 'Note was successfully created.' }
         format.json { render json: @note, status: :created, location: @note }
       else
