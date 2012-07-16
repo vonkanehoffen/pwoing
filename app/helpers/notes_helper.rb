@@ -6,4 +6,12 @@ module NotesHelper
     return links.html_safe
   end
   
+  def belongs_to_current_user(note)
+    if note.user == current_user 
+      return true
+    else
+      return false
+    end
+  end
+  
 end

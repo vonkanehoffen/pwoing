@@ -58,8 +58,12 @@ class NotesController < ApplicationController
   # DELETE /notes/1.json
   def destroy
     @note = Note.find(params[:id])
-    @note.destroy
-    flash[:notice] = 'Your note has been destroyed.'
+    if @note.user == current_user
+      @note.destroy
+      flash[:notice] = 'Your note has been destroyed.'
+    else
+      flash[:notice] = 'This is not your note to destroy.'
+    end
     respond_with(@note)
   end
 end
