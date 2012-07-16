@@ -2,8 +2,13 @@ class NotesController < ApplicationController
   # GET /notes
   # GET /notes.json
   def index
-    @notes = Note.all
-
+    if params[:tag_name]
+      # find posts by tag: /tags/tagname
+      @notes = Tag.find_by_name(params[:tag_name]).notes.order("created_at DESC")
+    else
+      @notes = Note.all
+    end
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @notes }
