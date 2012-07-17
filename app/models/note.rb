@@ -7,12 +7,24 @@ class Note < ActiveRecord::Base
   belongs_to :user
   
   validate :name_or_link
+  before_save :sanitise_link
   
   attr_writer :tag_names
   after_save :assign_tags
   
   def tag_names
     @tag_names || tags.map(&:name).join(' ')
+  end
+  
+  def sanitise_link
+    # Maybe we should validate a bit more in the controller
+    if !self.link.start_with?("http://","https://","ftp://")
+      if self.link.start_with?("//")
+        self.link.insert(0,"http:")
+      else
+        self.link.insert(0,"http://")
+      end
+    end
   end
   
   private # Everything after this is private
