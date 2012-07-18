@@ -82,8 +82,8 @@ class NotesController < ApplicationController
       res = Net::HTTP.get_response(URI(url))
       if res.code == "200"
         doc = Nokogiri::HTML.parse(res.body)
-        name = doc.search('title').first.text
-        meta = { 'name' => name }
+        title = doc.search('title').first.text
+        meta = { 'title' => title }
       else
         meta = { 'error' => 'Page Unreachable' }
       end

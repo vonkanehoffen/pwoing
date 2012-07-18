@@ -2,7 +2,7 @@
 <h2>Pwoing: Ultra Super Dope New Way to Store Your Links and Notes</h2>
 <table>
   <tr>
-    <th>Name</th>
+    <th>Title</th>
     <th>Link</th>
     <th>Content</th>
     <th>Tags</th>
@@ -13,7 +13,7 @@
 
 <% @notes.each do |note| %>
   <tr>
-    <td><%= note.name %></td>
+    <td><%= note.title %></td>
     <td><%= note.link %></td>
     <td><%= note.content %></td>
     <td><%= tag_links(note) %></td>

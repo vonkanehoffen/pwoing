@@ -1,12 +1,12 @@
 class Note < ActiveRecord::Base
 
-  attr_accessible :content, :link, :name, :tag_names
+  attr_accessible :content, :link, :title, :tag_names
   
   has_many :taggings, :dependent => :destroy
   has_many :tags, :through => :taggings
   belongs_to :user
   
-  validate :name_or_link
+  validate :title_or_link
   before_save :sanitise_link
   
   attr_writer :tag_names
@@ -37,9 +37,9 @@ class Note < ActiveRecord::Base
     end
   end
 
-  def name_or_link
-    if(name.blank? and link.blank?)
-      errors[:base] << "Your note must at least have a name or link."
+  def title_or_link
+    if(title.blank? and link.blank?)
+      errors[:base] << "Your note must at least have a title or link."
     end
   end
   

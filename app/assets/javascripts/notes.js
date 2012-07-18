@@ -42,7 +42,7 @@ function get_url_meta(url) {
         data: { url: url },
         success: function(data) {
             console.log(data);
-            $('input#note_name').val(data.name);
+            $('input#note_title').val(data.title);
         }
     })
 }
