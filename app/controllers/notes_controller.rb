@@ -66,4 +66,31 @@ class NotesController < ApplicationController
     end
     respond_with(@note)
   end
+  
+  def get_url_meta
+    # @meta = { 'animal' => 'badger', 'fruit' => 'banana' }
+    @meta = scrape_url_meta(params[:url])
+    respond_to do |format|
+      format.json { render :json => @meta }
+    end
+  end
+  
+  private
+  
+  def scrape_url_meta(url)
+    if(url)
+      res = Net::HTTP.get_response(URI(url))
+      if res.code == "200"
+        doc = Nokogiri::HTML.parse(res.body)
+        name = doc.search('title').first.text
+        meta = { 'name' => name }
+      else
+        meta = { 'error' => 'Page Unreachable' }
+      end
+    else
+      meta = { 'error' => 'No URL' }
+    end
+    return meta
+  end
+  
 end

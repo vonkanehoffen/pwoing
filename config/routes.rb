@@ -62,6 +62,7 @@ Pwoing::Application.routes.draw do
   match 'auth/failure', to: redirect('/')
   match 'signout', to: 'sessions#destroy', as: 'signout'
   match 'signin', to: 'sessions#index', as: 'signin'
+  match 'get_url_meta', to: 'notes#get_url_meta', as: 'get_url_meta'
   
   match '/tags/:tag_name' => 'notes#index', :as => :tag_name
   

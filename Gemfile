@@ -50,4 +50,6 @@ gem 'kaminari', '~> 0.13.0'
 # Better output on the console
 gem 'awesome_print'
 
+# Needed to scrape data from pages (get_url_meta)
+gem 'nokogiri'
 
