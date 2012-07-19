@@ -6,7 +6,9 @@ class NotesController < ApplicationController
   # GET /notes
   # GET /notes.json
   def index
-    if params[:tag_name]
+    if params[:user_name]
+      @notes = User.find_by_url_name(params[:user_name]).notes.order("created_at DESC").page params[:page]
+    elsif params[:tag_name]
       # find posts by tag: /tags/tagname
       @notes = Tag.find_by_name(params[:tag_name]).notes.order("created_at DESC").page params[:page]
     else

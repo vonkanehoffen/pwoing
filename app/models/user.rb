@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
       user.provider = auth["provider"]
       user.uid = auth["uid"]
       user.name = auth["info"]["name"]
+      user.url_name = auth["info"]["name"].downcase.gsub(/[^a-z0-9]+/i, '-')
     end
   end
 end

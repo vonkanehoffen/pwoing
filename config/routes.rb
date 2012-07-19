@@ -1,5 +1,22 @@
 Pwoing::Application.routes.draw do
   resources :notes
+  
+  root :to => 'notes#index'
+  
+  # Auth
+  match 'auth/:provider/callback', to: 'sessions#create'
+  match 'auth/failure', to: redirect('/')
+  match 'signout', to: 'sessions#destroy', as: 'signout'
+  match 'signin', to: 'sessions#index', as: 'signin'
+  
+  # Form auto population
+  match 'get_url_meta', to: 'notes#get_url_meta', as: 'get_url_meta'
+  
+  # Find by tag
+  match '/tags/:tag_name' => 'notes#index', :as => :tag_name
+  
+  # All other requests will try and find the user name
+  match '/:user_name' => 'notes#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -50,20 +67,12 @@ Pwoing::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'notes#index'
+  # root :to => 'notes#index'
 
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
-  
-  match 'auth/:provider/callback', to: 'sessions#create'
-  match 'auth/failure', to: redirect('/')
-  match 'signout', to: 'sessions#destroy', as: 'signout'
-  match 'signin', to: 'sessions#index', as: 'signin'
-  match 'get_url_meta', to: 'notes#get_url_meta', as: 'get_url_meta'
-  
-  match '/tags/:tag_name' => 'notes#index', :as => :tag_name
   
 end

@@ -14,5 +14,6 @@
 /log/*.log
 /tmp
 
-# Ignore Komodo Edit junk
+# Ignore Komodo Edit junk and my temp notes
 /pwoing.komodoproject
+/doc/notes.mdown
