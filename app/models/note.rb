@@ -18,11 +18,13 @@ class Note < ActiveRecord::Base
   
   def sanitise_link
     # Maybe we should validate a bit more in the controller
-    if !self.link.start_with?("http://","https://","ftp://")
-      if self.link.start_with?("//")
-        self.link.insert(0,"http:")
-      else
-        self.link.insert(0,"http://")
+    if !self.link.blank?
+      if !self.link.start_with?("http://","https://","ftp://")
+        if self.link.start_with?("//")
+          self.link.insert(0,"http:")
+        else
+          self.link.insert(0,"http://")
+        end
       end
     end
   end
