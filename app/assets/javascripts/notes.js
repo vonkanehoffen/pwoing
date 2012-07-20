@@ -1,27 +1,52 @@
-// Spider URLs for Content
+
+// Global JS -------------------------------------------------------------------
 
 var xhr;
 
 $(document).ready(function(){
     
+    // Spider URLs for Content -------------------------------------------------
+    
+    var note_link = $('input#note_link');
+    var note_title = $('input#note_title');
+
     // Add transport to URL as it's typed
     
-    $('input#note_link').keyup(function(){
+    note_link.keyup(function(){
         var url = $(this).val();
         if( is_url(url) ) {
             if( !has_transport(url) ) {
                 $(this).val('http://'+url);
                 url = $(this).val();
             }
-        }
+        }   
     })
-    $('input#note_link').change(function(){
-        var url = $('input#note_link').val();
+    note_link.change(function(){
+        var url = note_link.val();
+        console.log("here");
         if (is_url(url) && has_transport(url)) {
             get_url_meta(url);
         }
     })
+    
+    function get_url_meta(url) {
+    note_title.addClass('loading');
+    if(xhr) { xhr.abort(); }
+    xhr = $.ajax({
+        url: '/get_url_meta/',
+        dataType: 'json',
+        type: 'POST',
+        data: { url: url },
+        success: function(data) {
+            console.log(data);
+            note_title.val(data.title);
+            note_title.removeClass('loading');
+        }
+    })
+}
 })
+
+// Helpers ---------------------------------------------------------------------
 
 function is_url(url) {
     if(url.match(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/)) {
@@ -33,16 +58,3 @@ function has_transport(url) {
         return true; } else { return false; }
 }
 
-function get_url_meta(url) {    
-    if(xhr) { xhr.abort(); }
-    xhr = $.ajax({
-        url: '/get_url_meta/',
-        dataType: 'json',
-        type: 'POST',
-        data: { url: url },
-        success: function(data) {
-            console.log(data);
-            $('input#note_title').val(data.title);
-        }
-    })
-}

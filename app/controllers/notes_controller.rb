@@ -95,6 +95,12 @@ class NotesController < ApplicationController
   private
   
   def scrape_url_meta(url)
+    # This seems to lock up the server.
+    # Needs to cancel duff requests maybe and run in background
+    #
+    # Errno::EADDRINUSE (Address already in use - connect(2)):
+    # app/controllers/notes_controller.rb:99:in `scrape_url_meta'
+
     if(url)
       res = Net::HTTP.get_response(URI(url))
       if res.code == "200"
