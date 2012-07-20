@@ -29,6 +29,16 @@ class Note < ActiveRecord::Base
     end
   end
   
+  def self.search_by_tag(tag)
+    if tag
+      # create plural and non-plural version of the tag
+      tag.downcase!
+      tag.strip!
+      tag_alt = if tag.end_with?('s') then tag[0..-2] else tag+'s' end
+      joins(:tags).where("lower(name) = ? OR lower(name) = ?", tag, tag_alt).order("created_at DESC")
+    end
+  end
+  
   private # Everything after this is private
   
   def assign_tags

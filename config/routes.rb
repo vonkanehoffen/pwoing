@@ -13,7 +13,7 @@ Pwoing::Application.routes.draw do
   match 'get_url_meta', to: 'notes#get_url_meta', as: 'get_url_meta'
   
   # Find by tag
-  match '/tags/:tag_name' => 'notes#index', :as => :tag_name
+  match '/tag/:tag_name' => 'notes#index', :as => :tag_name
   
   # All other requests will try and find the user name
   match '/:user_name' => 'notes#index'

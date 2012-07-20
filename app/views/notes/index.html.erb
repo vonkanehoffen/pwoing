@@ -1,5 +1,13 @@
 <h1>Listing notes</h1>
 <h2>Pwoing: Ultra Super Dope New Way to Store Your Links and Notes</h2>
+
+<%= form_tag notes_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+
 <% if @notes %>
   <table>
     <tr>

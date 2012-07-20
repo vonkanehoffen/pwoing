@@ -8,24 +8,16 @@ class NotesController < ApplicationController
   def index
     
     # Find notes by user name: /username
-    
     if params[:user_name]
       @notes = User.find_by_url_name(params[:user_name]).notes.order("created_at DESC").page params[:page]
+      
+    # find notes by tag: /tags/tagname
     elsif params[:tag_name]
-
-      # find posts by tag: /tags/tagname
-      
-      # create plural and non-plural version...
-      tag = params[:tag_name].downcase.strip
-      tag_alt = if tag.end_with?('s')
-        tag[0..-2]
-      else
-        tag+'s'
-      end
-      
-      # ...search for both, case insensitively
-      @notes = Note.joins(:tags).where("lower(name) = ? OR lower(name) = ?", tag, tag_alt).order("created_at DESC").page params[:page]
-      
+      @notes = Note.search_by_tag(params[:tag_name]).page params[:page]
+    
+    # find notes by tag from search form input  
+    elsif params[:search]
+      @notes = Note.search_by_tag(params[:search]).page params[:page]
     else
       @notes = Note.page params[:page]
     end
