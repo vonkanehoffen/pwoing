@@ -30,20 +30,32 @@ $(document).ready(function(){
     })
     
     function get_url_meta(url) {
-    note_title.addClass('loading');
-    if(xhr) { xhr.abort(); }
-    xhr = $.ajax({
-        url: '/get_url_meta/',
-        dataType: 'json',
-        type: 'POST',
-        data: { url: url },
-        success: function(data) {
-            console.log(data);
-            note_title.val(data.title);
-            note_title.removeClass('loading');
+        note_title.addClass('loading');
+        if(xhr) { xhr.abort(); }
+        xhr = $.ajax({
+            url: '/get_url_meta/',
+            dataType: 'json',
+            type: 'POST',
+            data: { url: url },
+            success: function(data) {
+                console.log(data);
+                note_title.val(data.title);
+                note_title.removeClass('loading');
+            }
+        })
+    }
+    
+    // Search form Autocomplete ------------------------------------------------
+    // TODO: Works but the autofill suggestions still show -
+    // this doesn't happen with latest unforked typeahead
+    var ac_data_src = $('input#search').data('autocomplete-source');
+    $('input#search').typeahead({
+        source: function (typeahead, query) {
+            return $.get(ac_data_src, { query: query }, function (data) {
+                return typeahead.process(data);
+            });
         }
-    })
-}
+    });
 })
 
 // Helpers ---------------------------------------------------------------------

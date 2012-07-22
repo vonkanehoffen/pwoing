@@ -1,5 +1,6 @@
 Pwoing::Application.routes.draw do
   resources :notes
+  resources :tags
   
   root :to => 'notes#index'
   
