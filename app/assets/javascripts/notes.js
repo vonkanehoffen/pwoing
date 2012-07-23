@@ -46,8 +46,6 @@ $(document).ready(function(){
     }
     
     // Search form Autocomplete ------------------------------------------------
-    // TODO: Works but the autofill suggestions still show -
-    // this doesn't happen with latest unforked typeahead
     var ac_data_src = $('input#search').data('autocomplete-source');
     $('input#search').typeahead({
         source: function (typeahead, query) {

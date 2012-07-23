@@ -12,6 +12,7 @@ class NotesController < ApplicationController
       @notes = User.find_by_url_name(params[:user_name]).notes.search_by_tag(params[:tag_name]).page params[:page]
       
     # Find notes by user name: /username
+    # TODO: Fix NoMethodError when there isn't a matching user
     elsif params[:user_name]
       @notes = User.find_by_url_name(params[:user_name]).notes.order("created_at DESC").page params[:page]
       
