@@ -16,9 +16,12 @@ Pwoing::Application.routes.draw do
   # Find by tag
   match '/tag/:tag_name' => 'notes#index', :as => :tag_name
   
-  # All other requests will try and find the user name
+  # Find by user name
   match '/:user_name' => 'notes#index', :as => :user_posts
 
+  # Find by user name and tag
+  match '/:user_name/:tag_name' => 'notes#index', :as => :user_posts_by_tag
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

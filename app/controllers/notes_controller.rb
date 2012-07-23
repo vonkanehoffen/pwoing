@@ -7,8 +7,12 @@ class NotesController < ApplicationController
   # GET /notes.json
   def index
     
+    # Find notes by user name and tag: /username/tagname
+    if params[:user_name] && params[:tag_name]
+      @notes = User.find_by_url_name(params[:user_name]).notes.search_by_tag(params[:tag_name]).page params[:page]
+      
     # Find notes by user name: /username
-    if params[:user_name]
+    elsif params[:user_name]
       @notes = User.find_by_url_name(params[:user_name]).notes.order("created_at DESC").page params[:page]
       
     # find notes by tag: /tags/tagname
