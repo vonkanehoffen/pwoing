@@ -53,3 +53,6 @@ gem 'awesome_print'
 # Needed to scrape data from pages (get_url_meta)
 gem 'nokogiri'
 
+# Render note content as Markdown
+gem 'bluecloth', '>= 2.0.0'
+
