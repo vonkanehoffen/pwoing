@@ -14,7 +14,7 @@
                 <a class="brand" href="/">Pwoing</a>
                 <ul class="nav">
                     <% if current_user %>
-                        <li><a href="#">Signed in as <%= current_user.name %></a></li>
+                        <li><%= link_to 'Signed in as '+current_user.name, user_posts_path(current_user.url_name) %></li>
                         <li><%= link_to "Sign out", signout_path %></li>
                     <% else %>
                         <li><%= link_to "Login / Sign Up", signin_path %></li>

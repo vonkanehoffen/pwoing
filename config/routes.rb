@@ -17,7 +17,7 @@ Pwoing::Application.routes.draw do
   match '/tag/:tag_name' => 'notes#index', :as => :tag_name
   
   # All other requests will try and find the user name
-  match '/:user_name' => 'notes#index'
+  match '/:user_name' => 'notes#index', :as => :user_posts
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
