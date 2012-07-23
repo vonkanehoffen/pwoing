@@ -57,8 +57,12 @@ class NotesController < ApplicationController
   # PUT /notes/1.json
   def update
     @note = Note.find(params[:id])
-    if @note.update_attributes(params[:note])
-      flash[:notice] = 'Note was successfully updated.'
+    if @note.user == current_user
+      if @note.update_attributes(params[:note])
+        flash[:notice] = 'Note was successfully updated.'
+      end
+    else
+      flash[:error] = "You can't edit other people's notes."
     end
     respond_with(@note)
   end

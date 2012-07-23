@@ -27,14 +27,12 @@
       <td><%= note.link %></td>
       <td><%= note.content %></td>
       <td><%= tag_links(note) %></td>
-      <td><%= if note.user then note.user.name end %></td>
+      <td><%= note.user.try(:name) %></td>
       <td><%= link_to 'Show', note %></td>
-      <td><%= link_to 'Edit', edit_note_path(note) %></td>
-      <td>
-        <% if belongs_to_current_user(note) %>
-          <%= link_to 'Destroy', note, method: :delete, data: { confirm: 'Are you sure?' } %>
-        <% end %>
-      </td>
+      <% if belongs_to_current_user(note) %>
+        <td><%= link_to 'Edit', edit_note_path(note) %></td>
+        <td><%= link_to 'Destroy', note, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
     </tr>
   <% end %>
   </table>
