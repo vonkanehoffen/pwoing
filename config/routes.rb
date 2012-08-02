@@ -14,7 +14,8 @@ Pwoing::Application.routes.draw do
   match 'get_url_meta', to: 'notes#get_url_meta', as: 'get_url_meta'
   
   # Find by tag
-  match '/tag/:tag_name' => 'notes#index', :as => :tag_name
+  # The * is route globbing: http://guides.rubyonrails.org/routing.html#route-globbing
+  match '/tag/*tag_name' => 'notes#index', :as => :tag_name
   
   # Find by user name
   match '/:user_name' => 'notes#index', :as => :user_posts

@@ -23,7 +23,6 @@ $(document).ready(function(){
     })
     note_link.change(function(){
         var url = note_link.val();
-        console.log("here");
         if (is_url(url) && has_transport(url)) {
             get_url_meta(url);
         }

@@ -17,3 +17,7 @@
 # Ignore Komodo Edit junk and my temp notes
 /pwoing.komodoproject
 /doc/notes.mdown
+
+# Ignore sensitive data
+/config/initializers/omniauth.rb
+/config/database.yml
