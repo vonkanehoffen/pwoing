@@ -20,4 +20,4 @@
 
 # Ignore sensitive data
 /config/initializers/omniauth.rb
-
+/config/database.yml
